@@ -1,10 +1,10 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
+  "contentVersion": "1.0.0.1",
   "parameters": {
 
-    "vmName": { "type": "string", "defaultValue": "standalone-vm" },
     "vmSize": { "type": "string", "defaultValue": "Standard_B2s" },
+    "vmName": { "type": "string", "defaultValue": "standalone-vm" },
 
     "adminUsername": { "type": "string" },
     "adminPassword": { "type": "secureString" },
