@@ -7,20 +7,7 @@
     "vmName": { "type": "string", "defaultValue": "standalone-vm" },
 
     "adminUsername": { "type": "string" },
-    "adminPassword": { "type": "secureString" },
-
-    "scriptUri": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Optional: URL to a PowerShell script (.ps1). If empty, scriptCommand is used."
-      }
-    },
-    "scriptCommand": {
-      "type": "string",
-      "defaultValue": "powershell -ExecutionPolicy Bypass -Command \"Write-Host 'Hello from Custom Script Extension'\"",
-      "metadata": { "description": "Used when scriptUri is empty." }
-    }
+    "adminPassword": { "type": "secureString" }
   },
   "variables": {
     "vnetName": "standalone-vnet",
@@ -203,11 +190,12 @@
         "typeHandlerVersion": "1.10",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[if(equals(parameters('scriptUri'), ''), json('[]'), json(concat('[\"', parameters('scriptUri'), '\"]')))]"
+          "fileUris": [
+            "[uri(deployment().properties.templateLink.uri, 'getvm.ps1')]"
+          ],
+          "commandToExecute": "['powershell -ExecutionPolicy Bypass -File .\\\\getvm.ps1']"
         },
-        "protectedSettings": {
-          "commandToExecute": "[if(equals(parameters('scriptUri'), ''), parameters('scriptCommand'), 'powershell -ExecutionPolicy Bypass -File .\\\\install.ps1')]"
-        }
+        "protectedSettings": {}
       }
     }
   ],

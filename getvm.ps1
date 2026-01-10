@@ -1,3 +1,4 @@
+# https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffreddydk%2Fnav-arm-templates%2Frefs%2Fheads%2Fmain%2Fgetvm.json
 $ENV:GITHUB_ENV = [System.IO.Path]::GetTempFileName()
 $ENV:GITHUB_PATH = [System.IO.Path]::GetTempFileName()
 
