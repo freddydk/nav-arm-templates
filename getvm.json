@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.2",
   "parameters": {
 
-    "vmSize": { "type": "string", "defaultValue": "Standard_D4as_v5" },
+    "vmSize": { "type": "string", "defaultValue": "Standard_D4as_v4" },
     "vmName": { "type": "string", "defaultValue": "standalone-vm" },
 
     "adminUsername": { "type": "string" },
