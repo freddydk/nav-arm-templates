@@ -1,6 +1,9 @@
 # https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffreddydk%2Fnav-arm-templates%2Frefs%2Fheads%2Fmain%2Fgetvm.json
-$ENV:GITHUB_ENV = [System.IO.Path]::GetTempFileName()
-$ENV:GITHUB_PATH = [System.IO.Path]::GetTempFileName()
+$ENV:GITHUB_ENV = Join-Path $env:TEMP ([System.Guid]::NewGuid().ToString())
+$ENV:GITHUB_PATH = Join-Path $env:TEMP ([System.Guid]::NewGuid().ToString())
+
+New-Item $ENV:GITHUB_ENV -ItemType File
+New-Item $ENV:GITHUB_PATH -ItemType File
 
 Function LoadEnvironmentVariables {
     # Load Environment variables from ENV:GITHUB_ENV in this session
@@ -59,7 +62,7 @@ function RunScript {
 
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/disableDefender.ps1'
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/downloadGenericImage.ps1'
-RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupGeneric2.ps1'
+RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupGeneric1.ps1'
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupGeneric2.ps1'
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupPrerequisites.ps1'
 
