@@ -197,7 +197,7 @@
           "fileUris": [
             "[uri(deployment().properties.templateLink.uri, 'getvm.ps1')]"
           ],
-          "commandToExecute": "[concat('powershell.exe -executionpolicy unrestricted -file ','getvm.ps1', '-TemplateLink \"',deployment().properties.templateLink.uri,'\" -adminUsername \"',variables('adminUsername'),'\" -adminPassword \"',replace(variables('adminPassword'),'\"','\\\"'),'\" -artifactUrl \"',variables('artifactUrl'),'\" -bakFile \"',variables('bakFile'),'\"')]"
+          "commandToExecute": "[concat('powershell.exe -executionpolicy unrestricted -file ','getvm.ps1', ' -TemplateLink \"',deployment().properties.templateLink.uri,'\" -adminUsername \"',variables('adminUsername'),'\" -adminPassword \"',replace(variables('adminPassword'),'\"','\\\"'),'\" -artifactUrl \"',variables('artifactUrl'),'\" -bakFile \"',variables('bakFile'),'\"')]"
         },
         "protectedSettings": {}
       }
