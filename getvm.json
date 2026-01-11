@@ -2,12 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.2",
   "parameters": {
-
     "vmSize": { "type": "string", "defaultValue": "Standard_D4as_v4" },
-    "vmName": { "type": "string", "defaultValue": "standalone-vm" },
-
+    "vmName": { "type": "string", "defaultValue": "myvm" },
     "adminUsername": { "type": "string" },
-    "adminPassword": { "type": "secureString" }
+    "adminPassword": { "type": "secureString" },
+    "artifactUrl": { "type": "string" },
+    "bakFile": { "type": "string" }
   },
   "variables": {
     "vnetName": "standalone-vnet",
@@ -16,7 +16,11 @@
     "subnetPrefix": "10.20.0.0/24",
     "pipName": "[concat(parameters('vmName'), '-pip')]",
     "nsgName": "[concat(parameters('vmName'), '-nsg')]",
-    "nicName": "[concat(parameters('vmName'), '-nic')]"
+    "nicName": "[concat(parameters('vmName'), '-nic')]",
+    "adminUsername": "[trim(parameters('adminUsername'))]",
+    "adminPassword": "[parameters('adminPassword')]",
+    "artifactUrl": "[trim(parameters('artifactUrl'))]",
+    "bakFile": "[trim(parameters('bakFile'))]"
   },
   "resources": [
     {
@@ -193,7 +197,7 @@
           "fileUris": [
             "[uri(deployment().properties.templateLink.uri, 'getvm.ps1')]"
           ],
-          "commandToExecute": "['powershell -ExecutionPolicy Bypass -File .\\\\getvm.ps1']"
+          "commandToExecute": "['powershell -ExecutionPolicy Bypass -File .\\\\getvm.ps1', '-TemplateLink \"',deployment().properties.templateLink.uri,'\" -adminUsername \"',variables('adminUsername'),'\" -adminPassword \"',replace(variables('adminPassword'),'\"','\\\"'),'\" -artifactUrl \"',variables('artifactUrl'),'\" -bakFile \"',variables('bakFile'),'\"']"
         },
         "protectedSettings": {}
       }

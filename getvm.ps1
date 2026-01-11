@@ -1,3 +1,13 @@
+Param(
+    [string] $templateLink,
+    [string] $adminUsername,
+    [string] $adminPassword,
+    [string] $artifactUrl,
+    [string] $bakFile
+)
+
+Start-Transcript -Path "c:\temp\log.txt" -Append
+
 # https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffreddydk%2Fnav-arm-templates%2Frefs%2Fheads%2Fmain%2Fgetvm.json
 $ENV:GITHUB_ENV = Join-Path $env:TEMP ([System.Guid]::NewGuid().ToString())
 $ENV:GITHUB_PATH = Join-Path $env:TEMP ([System.Guid]::NewGuid().ToString())
@@ -60,9 +70,12 @@ $ENV:enableApiServices = 'Y'
 $ENV:memory = '12G'
 $ENV:isBcSandbox = 'N'
 $ENV:auth = 'UserPassword'
-$ENV:username = 'admin'
-$ENV:password = 'P@ssword1'
+$ENV:username = $adminUsername
+$ENV:password = $adminPassword
 $ENV:locale = 'da-DK'
 $ENV:filesOnly = 'false'
-$ENV:bakFile = 'https://www.dropbox.com/scl/fi/s5olhspgauuzv6vmkl9f6/DBC-DAL-BaseApplication.bak?rlkey=wprwilut8hehywm5kgi88ifam&dl=1'
+$ENV:bakFile = $bakFile
+$ENV:artifactUrl = $artifactUrl
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupBC.ps1'
+
+Stop-Transcript
