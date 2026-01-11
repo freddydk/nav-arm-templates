@@ -22,22 +22,8 @@ Function LoadEnvironmentVariables {
 }
 
 function LoadPathVariables {
-    # Load PATH variables from ENV:GITHUB_PATH in this session
-    $pathFile = $env:GITHUB_PATH
-    if (Test-Path $pathFile) {   
-        $lines = Get-Content -Path $pathFile -Encoding utf8
-        foreach ($line in $lines) {
-            if ($line -and $line.Trim() -ne '') {
-                $pathEntry = $line.Trim()
-                Write-Host "Adding to PATH: $pathEntry"
-                $currentPath = [System.Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::Process)
-                if ($currentPath -notlike "*$pathEntry*") {
-                    $newPath = "$currentPath;$pathEntry"
-                    [System.Environment]::SetEnvironmentVariable("PATH", $newPath, [System.EnvironmentVariableTarget]::Process)
-                }
-            }
-        }
-    }
+    $currentPath = [System.Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::Machine)
+    [System.Environment]::SetEnvironmentVariable("PATH", $currentPath, [System.EnvironmentVariableTarget]::Process)
 }
 
 function RunScript {
@@ -53,10 +39,10 @@ function RunScript {
     $fileName = Join-Path $env:TEMP ([System.IO.Path]::GetFileName($scriptUrl))
     (New-Object Net.WebClient).DownloadFile($scriptUrl, $fileName)
     if ($usePwsh) {
-        & "pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File $fileName
+        & "pwsh.exe" -NoProfile -ExecutionPolicy Unrestricted -File $fileName
     }
     else {
-        & "powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $fileName
+        & "powershell.exe" -NoProfile -ExecutionPolicy Unrestricted -File $fileName
     }
 }
 
@@ -64,9 +50,9 @@ RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templat
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/downloadGenericImage.ps1'
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupGeneric1.ps1'
 RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupGeneric2.ps1'
-RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupPrerequisites.ps1'
+RunScript -scriptUrl 'https://raw.githubusercontent.com/freddydk/nav-arm-templates/refs/heads/main/setupPreRequisites.ps1'
 
-# Setupo BC
+# Setup BC
 $ENV:ACCEPT_EULA = 'Y'
 $ENV:ACCEPT_INSIDEREULA = 'Y'
 $ENV:useSSL = 'N'
