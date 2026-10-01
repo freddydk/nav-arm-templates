@@ -26,5 +26,5 @@ ReplaceStr -FileName: 'c:/run/SetupUrls.ps1' -SearchStr: 'https://aka.ms/bcdocke
 ReplaceStr -FileName: 'c:/run/SQLConf.ini' -SearchStr: 'SQLMAXMEMORY="2147483647"' -ReplaceStr: 'SQLMAXMEMORY="22528"'
 ReplaceStr -FileName: 'c:/run/SQLConf.ini' -SearchStr: '"Manual"' -ReplaceStr: '"Automatic"'
 ReplaceStr -FileName: 'c:/run/SetupGeneric1.ps1' -SearchStr: 'SQLEXPRADV_x64_ENU.exe' -ReplaceStr: 'SQLServer2022-DEV-x64-ENU.exe'
-ReplaceStr -FileName: 'c:/run/SetupGeneric1.ps1' -SearchStr: ', "/MediaType=Advanced"' -ReplaceStr: ''
+ReplaceStr -FileName: 'c:/run/SetupGeneric1.ps1' -SearchStr: '"/MediaType=Advanced"' -ReplaceStr: '"/MediaType=CAB"'
 ReplaceStr -FileName: 'c:/run/HelperFunctions.ps1' -SearchStr: '[string] $basePath = ''c:\dl''' -ReplaceStr: '[string] $basePath = ''c:\bcartifacts.cache'''
